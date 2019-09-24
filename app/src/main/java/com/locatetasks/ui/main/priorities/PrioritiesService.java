@@ -23,7 +23,8 @@ public class PrioritiesService {
         for (ProjectModel projectModel : projectModels) {
             for (TaskModel task : projectModel.getTaskModels()) {
                 OffsetDateTime executionOffsetDateTime = task.getExecutionOffsetDateTime();
-                if (executionOffsetDateTime.getDayOfYear() == now.getDayOfYear() && executionOffsetDateTime.getYear() == now.getYear()) {
+                if (executionOffsetDateTime.getDayOfYear() == now.getDayOfYear() && executionOffsetDateTime.getYear() == now.getYear()
+                && !task.isDone()) {
                     TaskModel newModel = TaskModel.of(task);
                     newModel.setProjectModel(projectModel);
                     priorities.add(newModel);

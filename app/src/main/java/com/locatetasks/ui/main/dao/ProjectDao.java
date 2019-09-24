@@ -20,11 +20,18 @@ public final class ProjectDao implements Dao<ProjectModel, Long>{
     private final static Map<Long, ProjectModel> projects = new HashMap<>();
     private static Long CURRENT_MODEL_ID = 0L;
     static {
-        projects.put(CURRENT_MODEL_ID, new ProjectModel("Projekcik 1", Collections.singletonList(new TaskModel(
+        TaskModel zrobić_zakupy1 = new TaskModel(
                 "Zrobić zakupy", "Kupić mleko, jajka", OffsetDateTime.now()
-        ))));
+        );
+        zrobić_zakupy1.setId(0L);
+        ProjectModel zrobić_zakupy = new ProjectModel("Projekcik 1", Collections.singletonList(zrobić_zakupy1));
+        zrobić_zakupy1.setProjectModel(zrobić_zakupy);
+        zrobić_zakupy.setId(CURRENT_MODEL_ID);
+        projects.put(CURRENT_MODEL_ID, zrobić_zakupy);
         CURRENT_MODEL_ID++;
-        projects.put(CURRENT_MODEL_ID, new ProjectModel("Projekcik 5", Collections.<TaskModel>emptyList()));
+        ProjectModel value = new ProjectModel("Projekcik 5", Collections.<TaskModel>emptyList());
+        value.setId(CURRENT_MODEL_ID);
+        projects.put(CURRENT_MODEL_ID, value);
         CURRENT_MODEL_ID++;
     }
 
@@ -53,6 +60,17 @@ public final class ProjectDao implements Dao<ProjectModel, Long>{
             models.add(ProjectModel.of(model));
         }
         return models;
+    }
+
+    public void markTaskAsDone(Long projectId, final Long taskId) {
+        Optional.ofNullable(projects.get(projectId))
+                .ifPresent(new Consumer<ProjectModel>() {
+                    @Override
+                    public void accept(ProjectModel projectModel) {
+                        projectModel.getTaskModels().get(taskId.intValue())
+                                .setDone(true);
+                    }
+                });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.locatetasks.ui.main.model;
 
+import android.util.Log;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +20,7 @@ public final class ProjectModel extends AbstractModel {
     public static ProjectModel of(ProjectModel projectModel) {
         ProjectModel newModel = new ProjectModel(projectModel.getName(), getTaskModelsCopy(projectModel.getTaskModels()));
         newModel.setId(projectModel.getId());
+        Log.e("PM", "of: " + newModel);
         return newModel;
     }
 
@@ -46,7 +49,7 @@ public final class ProjectModel extends AbstractModel {
 
     @Override
     public String toString() {
-        return "ProjectModel{" +
+        return super.toString() + "ProjectModel{" +
                 "taskModels=" + taskModels +
                 '}';
     }

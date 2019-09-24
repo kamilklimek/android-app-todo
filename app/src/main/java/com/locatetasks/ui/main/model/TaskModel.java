@@ -7,12 +7,20 @@ public final class TaskModel extends AbstractModel {
     private final String description;
     private final OffsetDateTime executionOffsetDateTime;
     private ProjectModel projectModel;
+    private boolean isDone = false;
     public TaskModel(String name, String description, OffsetDateTime executionOffsetDateTime) {
         super(name);
         this.description = description;
         this.executionOffsetDateTime = executionOffsetDateTime;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 
     public ProjectModel getProjectModel() {
         return projectModel;
@@ -23,7 +31,11 @@ public final class TaskModel extends AbstractModel {
     }
 
     public static TaskModel of(TaskModel taskModel) {
-        return new TaskModel(taskModel.getName(), taskModel.getDescription(), taskModel.getExecutionOffsetDateTime());
+        TaskModel taskModel1 = new TaskModel(taskModel.getName(), taskModel.getDescription(), taskModel.getExecutionOffsetDateTime());
+        taskModel1.setProjectModel(taskModel.getProjectModel());
+        taskModel1.setId(taskModel.getId());
+        taskModel1.setDone(taskModel.isDone);
+        return taskModel1;
     }
 
     public String getDescription() {

@@ -1,7 +1,7 @@
 package com.locatetasks;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,7 +12,6 @@ import com.locatetasks.ui.main.AddNewSectionPagesAdapter;
 public class AddModelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("ADD ACTIVITY", "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_model);
         AddNewSectionPagesAdapter addNewSectionPagesAdapter= new AddNewSectionPagesAdapter(this, getSupportFragmentManager());
@@ -21,4 +20,14 @@ public class AddModelActivity extends AppCompatActivity {
         addNewPager.setAdapter(addNewSectionPagesAdapter);
         addTabs.setupWithViewPager(addNewPager);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+        getBaseContext().startActivity(myIntent);
+        startActivity(myIntent);
+    }
+
+
 }

@@ -57,7 +57,6 @@ public class AddTaskFormFragment extends Fragment {
         projectSelect.setOnItemSelectedListener(new Adapter(this));
 
 
-
         button.setOnClickListener(new ButtonOnClick(this));
 
         return root;
@@ -103,12 +102,14 @@ public class AddTaskFormFragment extends Fragment {
                             taskName,
                             desc.getText().toString(),
                             exec
-                            ));
+                    ));
             String message = "Dodano pomyślnie zadanie: " + taskName;
 
 
             Intent myIntent = new Intent(fragment.getActivity().getBaseContext(), MainActivity.class);
-            Snackbar.make(v, message, message.length());
+
+            Snackbar.make(v, message, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
             fragment.getActivity().getBaseContext().startActivity(myIntent);
         }
     }

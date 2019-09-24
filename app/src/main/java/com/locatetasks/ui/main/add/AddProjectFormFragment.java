@@ -58,12 +58,9 @@ public class AddProjectFormFragment extends Fragment {
             String projectName = view.getText().toString();
 
             DependencyManager.get(ProjectDao.class).save(new ProjectModel(projectName, new LinkedList<TaskModel>()));
-            String message = "Dodano pomyślnie projekt: " + projectName;
 
-
-            Intent myIntent = new Intent(fragment.getActivity().getBaseContext(), MainActivity.class);
-            Snackbar.make(v, message, message.length());
-            fragment.getActivity().getBaseContext().startActivity(myIntent);
+            Intent myIntent = new Intent(getActivity(), MainActivity.class);
+            startActivity(myIntent);
         }
     }
 }

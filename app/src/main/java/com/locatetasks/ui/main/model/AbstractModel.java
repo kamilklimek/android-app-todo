@@ -35,4 +35,12 @@ abstract class AbstractModel {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    @Override
+    public String toString() {
+        return "AbstractModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

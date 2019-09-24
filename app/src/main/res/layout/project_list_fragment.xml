@@ -14,5 +14,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="76dp"></LinearLayout>
+        tools:layout_editor_absoluteY="76dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
