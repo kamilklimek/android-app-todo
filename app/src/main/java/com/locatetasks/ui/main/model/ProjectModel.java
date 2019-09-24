@@ -20,7 +20,6 @@ public final class ProjectModel extends AbstractModel {
     public static ProjectModel of(ProjectModel projectModel) {
         ProjectModel newModel = new ProjectModel(projectModel.getName(), getTaskModelsCopy(projectModel.getTaskModels()));
         newModel.setId(projectModel.getId());
-        Log.e("PM", "of: " + newModel);
         return newModel;
     }
 

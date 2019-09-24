@@ -7,7 +7,9 @@ import com.locatetasks.ui.main.model.TaskModel;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,12 +26,12 @@ public final class ProjectDao implements Dao<ProjectModel, Long>{
                 "Zrobić zakupy", "Kupić mleko, jajka", OffsetDateTime.now()
         );
         zrobić_zakupy1.setId(0L);
-        ProjectModel zrobić_zakupy = new ProjectModel("Projekcik 1", Collections.singletonList(zrobić_zakupy1));
+        ProjectModel zrobić_zakupy = new ProjectModel("Projekcik 1", new LinkedList<TaskModel>());
         zrobić_zakupy1.setProjectModel(zrobić_zakupy);
         zrobić_zakupy.setId(CURRENT_MODEL_ID);
         projects.put(CURRENT_MODEL_ID, zrobić_zakupy);
         CURRENT_MODEL_ID++;
-        ProjectModel value = new ProjectModel("Projekcik 5", Collections.<TaskModel>emptyList());
+        ProjectModel value = new ProjectModel("Projekcik 5", new LinkedList<TaskModel>());
         value.setId(CURRENT_MODEL_ID);
         projects.put(CURRENT_MODEL_ID, value);
         CURRENT_MODEL_ID++;
@@ -83,6 +85,9 @@ public final class ProjectDao implements Dao<ProjectModel, Long>{
                 .ifPresent(new Consumer<ProjectModel>() {
                     @Override
                     public void accept(ProjectModel projectModel) {
+                        List<TaskModel> taskModels = projectModel.getTaskModels();
+                        taskModel.setId((long) taskModels.size());
+                        taskModel.setProjectModel(projectModel);
                         projectModel.getTaskModels().add(taskModel);
                     }
                 });

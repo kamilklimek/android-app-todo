@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -50,8 +51,19 @@ public class AddTaskFormFragment extends Fragment {
 
 
         Spinner projectSelect = root.findViewById(R.id.project_select);
+        List<ProjectModel>  projectModels =
+                DependencyManager.get(ProjectDao.class).findAll();
+
+        String [] projectNames = new String[projectModels.size()];
+
+        for (int i = 0; i<projectModels.size(); i++) {
+            projectNames[i] = projectModels.get(i).getName();
+        }
+
+
+
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(
-                this.getContext(), R.layout.project_select_spinner, R.id.item, new String[]{"PROJEKT", "DRUGI"});
+                this.getContext(), R.layout.project_select_spinner, R.id.item,projectNames);
         projectSelect.setAdapter(spinnerArrayAdapter);
 
         projectSelect.setOnItemSelectedListener(new Adapter(this));
@@ -90,11 +102,13 @@ public class AddTaskFormFragment extends Fragment {
         public void onClick(View v) {
             EditText name = fragment.getView().findViewById(R.id.task_name);
             EditText desc = fragment.getView().findViewById(R.id.task_description);
-            DatePicker date = fragment.getView().findViewById(R.id.executeDate);
-            TimePicker time = fragment.getView().findViewById(R.id.executeTime);
+            AppCompatEditText date = fragment.getView().findViewById(R.id.executeDate);
+            AppCompatEditText time = fragment.getView().findViewById(R.id.executeTime);
 
+            String[] split = date.getText().toString().split("-");
+            String[] timeSplit = time.getText().toString().split(":");
             OffsetDateTime exec = OffsetDateTime.of(
-                    date.getYear(), date.getMonth(), date.getDayOfMonth(), time.getHour(), time.getMinute(), 0, 0, ZoneOffset.of(ZoneId.systemDefault().getId()));
+                    Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]), 0, 0, OffsetDateTime.now().getOffset());
 
             String taskName = name.getText().toString();
             DependencyManager.get(ProjectDao.class)

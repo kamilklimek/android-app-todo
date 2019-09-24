@@ -22,7 +22,7 @@ import java.util.function.Supplier;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final String[] TAB_TITLES = new String[]{"Priorytety", "Projekty", "Szukaj"};
+    private static final String[] TAB_TITLES = new String[]{"Priorytety", "Projekty"};
 
     private final Context mContext;
 
@@ -39,7 +39,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return new PrioritiesListFragment();
             case 1:
                 return new ProjectListFragment();
-            case 2:
             default:
                 return new ProjectListFragment();
         }

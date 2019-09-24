@@ -27,7 +27,6 @@ import java.util.LinkedList;
 public class AddProjectFormFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.e("ADD FORM", "getItem: ");
         super.onCreate(savedInstanceState);
     }
 
@@ -36,7 +35,6 @@ public class AddProjectFormFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Log.e("ADD FORM", "VIEW: ");
         View root = inflater.inflate(R.layout.add_project_form, container, false);
         Button button = root.findViewById(R.id.add_project_btn);
 
